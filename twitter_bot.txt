@@ -1,0 +1,57 @@
+from playwright.sync_api import sync_playwright
+import time
+import random
+
+
+def login_to_twitter(username, password,mobile):
+    with sync_playwright() as playwright:
+        browser = playwright.chromium.launch(headless=False, channel='msedge')
+        context = browser.new_context()
+        page = context.new_page()
+        page.goto("https://twitter.com/login")
+        time.sleep(random.uniform(2, 4))
+
+        page.fill('input[autocomplete="username"]', username)
+
+        time.sleep(random.uniform(2, 4))
+
+        page.click('text="Next"')
+        time.sleep(random.uniform(2, 4))
+        try:
+            page.fill('input[autocomplete="on"]', mobile)
+
+            time.sleep(random.uniform(2, 4))
+
+            page.click('text="Next"')
+            time.sleep(random.uniform(2, 4))
+
+        except:
+            print("mobile number is not required")
+
+
+        page.wait_for_selector('input[autocomplete="current-password"]')
+        time.sleep(random.uniform(2, 4))
+
+        page.fill('input[autocomplete="current-password"]', password)
+        time.sleep(random.uniform(2, 4))
+
+        page.click('div[data-testid="LoginForm_Login_Button"]')
+
+        page.click('text="Post"')
+        time.sleep(random.uniform(2, 4))
+
+        page.fill('.public-DraftStyleDefault-ltr','This is a test tweet')
+
+        page.click('div[data-testid="tweetButton"]')
+
+        time.sleep(random.uniform(4, 5))
+
+        context.close()
+        browser.close()
+
+
+username = ''
+password = ''
+mobile = ''
+
+login_to_twitter(username, password,mobile)
