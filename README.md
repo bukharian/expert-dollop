@@ -11,3 +11,5 @@ example:
 I searched for Java:"https://www.timesjobs.com/candidate/job-search.html?searchType=personalizedSearch&from=submit&txtKeywords=java&txtLocation="
 After giving the url it will give you the information stated above.
 
+It then ouputs the collected information to the directory chosen by the user in .txt format.
+
